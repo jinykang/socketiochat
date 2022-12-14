@@ -1,0 +1,128 @@
+
+
+1)구글 드라이브에서 HTML템플릿을 다운받아 압축을 해제합니다.
+-압축해제 후 폴더내 모든폴더와 소스를 복사해서 프로젝트 public폴더내에 복사 붙여넣는다.
+
+
+
+
+2)routes\index.js 라우팅 파일내에 스몰챗팅 라우팅 메소드 생성 및 뷰파일을 생성한다.
+
+
+--routes\index.js
+
+/* 
+-스몰 그룹 채팅-채팅방 기반 채팅 페이지 호출 라우팅 메소드
+-호출주소: http://localhost:3000/smallchat?roomid=room1&nickname=eddy
+*/
+router.get('/smallchat', function(req, res, next) {
+
+  var roomid = req.query.roomid;
+  var nickname = req.query.nickname;
+
+  res.render('smallchat',{roomid,nickname});
+});
+
+
+
+--views\smallchat.ejs 파일 생성
+-public폴더내 index1.html파일을 복사 붙여넣는다..
+
+
+--socket.js내 스몰채팅 전용 그룹 메시지 수신기 정의 
+
+
+//스몰그룹채팅: 채팅방 클라이언트 메시지 수신 및 클라이언트로 발신처리하기 
+//그룹 메시징 수신 및 발송
+socket.on("smallmsg",function(roomId,nickName,msg){
+    io.to(roomId).emit("receiveSmallMsg",nickName,msg);
+});
+
+
+
+3)views\smallchat.ejs 파일내에 클라이언트 채팅 프로그래밍을 구현한다.
+
+--적절히 smallchat.ejs 페이지내 HTML요소의 ID값을 지정한다(메시지입력박스=message/전송버튼 btnSend)
+
+
+<!-- socket.io javascript client library 참조  -->
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    
+
+<!-- smallchat 관련 채팅 클라이언트 기능 구현 -->
+<script>
+
+    //클라이언트(웹브라우저) 서버 연결 소켓 객체 정의 
+    var socket = io.connect('/');
+
+    //서버 소켓주소 정의하고 지정서버소켓으로 연결하기 
+    //var socket = io.connect('http://localhost:3000');
+
+    var myRoomid ="<%=roomid%>";
+    var myNickName ="<%=nickname%>";
+
+    //페이지 로딩후 바로 채팅방 입장처리 
+    socket.emit("entry",myRoomid,myNickName);
+
+    $("#btnSend").click(function(){
+        var msg = $("#message").val();
+        console.log("메시지 발송:",msg);
+   
+        //그룹메시징 발송
+        socket.emit("smallmsg",myRoomid,myNickName,msg);
+    });
+
+
+    //채팅방 입장완료 메시지 수신기
+    socket.on("entryok",function(receiveMsg){
+        console.log("채팅방 입장완료:",receiveMsg);
+    });
+
+    //그룹채팅 메시지 수신처리
+    socket.on("receiveSmallMsg",function(nickName,msg){
+        console.log("채팅방 메시지 수신완료:",nickName,msg);
+
+        var msgTag = "";
+        
+        //본인 메시지 여부 체크 UI템플릿 다르게 구성하기 
+        if(myNickName == nickName){
+            msgTag =`<div class="right">
+                    <div class="author-name">
+                        ${nickName}
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        ${msg}
+                    </div>
+                </div>`;
+        }else{
+            msgTag =`<div class="left">
+                    <div class="author-name">
+                        ${nickName}
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        ${msg}
+                    </div>
+                </div>`;
+        }
+
+        //채팅이력에 태그 추가하기
+        $("#chatContents").append(msgTag);
+        chatScrollToBottom();
+    });
+
+
+
+    //채팅영역 스크롤 최하단 이동시키기
+    function chatScrollToBottom(){
+        $("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+    }
+
+</script>
+
+

@@ -1,0 +1,45 @@
+
+터미널내 작업폴더 위치 확인 
+D:\Study>
+
+1)node express 팩키지 전역 설치-최초한번 
+npm i -g express-generator
+
+
+
+2)express명령어 기반 Node Express MVC 패턴 웹 프로젝트 생성하기 
+express nodechatapp --view=ejs
+
+
+3)템플릿 프로젝트 실행에 필요한 노드 팩키지 복원 설치 
+터미널 해당 프로젝트로 이동 
+cd nodechatapp
+-package.json 파일내 dependencies 영역내 필수 설치 팩키지 목록 확인 
+npm i
+
+-팩키지설치 확인 node_modules폴더확인 
+
+
+4)노드 어플케이션 실행하기 
+npm start  
+
+
+5)웹브라우저로 노드웹 어플리케이션  확인하기 
+http://localhost:3000  
+
+
+6)디버깅 모드 중단하기 
+Ctrl + C 
+
+
+7)nodemon 개발지원 팩키지 설치하기 
+npm i -g nodemon
+
+package.json 파일오픈 후 
+  "start": "node ./bin/www"    ===>   "start": "nodemon ./bin/www" 으로 변경저장
+
+npm start  실행시 nodemon 환경으로 실행되는지 확인 필수 
+
+
+
+

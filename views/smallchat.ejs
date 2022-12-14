@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>INSPINIA | Main view</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="block m-t-xs font-bold">Example user</span>
+                            <span class="text-muted text-xs block">menu <b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        IN+
+                    </div>
+                </li>
+                <li class="active">
+                    <a href="/index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
+                </li>
+                <li>
+                    <a href="/minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
+                </li>
+                <li>
+                    <a href="/samples/list.html"><i class="fa fa-th-large"></i> <span class="nav-label">샘플페이지</span> </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="#">
+                        <div class="form-group">
+                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center m-t-lg">
+                        <h1>
+                            INSPINIA Static Seed Project for BS4
+                        </h1>
+                        <small>
+                            It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment for these projects.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div>
+            <div>
+                <strong>Copyright</strong> Example Company &copy; 2014-2018
+            </div>
+        </div>
+    </div>
+
+
+        <!-- 스몰채팅 영역 -->
+        <div class="small-chat-box fadeInRight animated">
+
+            <div class="heading" draggable="true">
+                <small class="chat-date float-right">
+                    02.19.2015
+                </small>
+                Small chat
+            </div>
+
+            <div class="content" id="chatContents">
+
+                <!-- <div class="left">
+                    <div class="author-name">
+                        Monica Jackson <small class="chat-date">
+                        10:02 am
+                    </small>
+                    </div>
+                    <div class="chat-message active">
+                        Lorem Ipsum is simply dummy text input.
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="author-name">
+                        Mick Smith
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        Lorem Ipsum is simpl.
+                    </div>
+                </div> -->
+
+ 
+
+
+            </div>
+            <div class="form-chat">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" id="message">
+                    <span class="input-group-append"> <button
+                        class="btn btn-primary" type="button" id="btnSend">Send
+                </button> </span></div>
+            </div>
+
+        </div>
+
+        <!-- 스몰채팅 아이콘 -->
+        <div id="small-chat">
+
+            <span class="badge badge-warning float-right">5</span>
+            <a class="open-small-chat" href="">
+                <i class="fa fa-comments"></i>
+
+            </a>
+        </div>
+
+
+</div>
+
+<!-- Mainly scripts -->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+
+
+
+<!-- socket.io javascript client library 참조  -->
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
+    
+
+<!-- smallchat 관련 채팅 클라이언트 기능 구현 -->
+<script>
+
+    //클라이언트(웹브라우저) 서버 연결 소켓 객체 정의 
+    var socket = io.connect('/');
+
+    //서버 소켓주소 정의하고 지정서버소켓으로 연결하기 
+    //var socket = io.connect('http://localhost:3000');
+
+    var myRoomid ="<%=roomid%>";
+    var myNickName ="<%=nickname%>";
+
+    //페이지 로딩후 바로 채팅방 입장처리 
+    socket.emit("entry",myRoomid,myNickName);
+
+    $("#btnSend").click(function(){
+        var msg = $("#message").val();
+        console.log("메시지 발송:",msg);
+   
+        //그룹메시징 발송
+        socket.emit("smallmsg",myRoomid,myNickName,msg);
+    });
+
+
+    //채팅방 입장완료 메시지 수신기
+    socket.on("entryok",function(receiveMsg){
+        console.log("채팅방 입장완료:",receiveMsg);
+    });
+
+    //그룹채팅 메시지 수신처리
+    socket.on("receiveSmallMsg",function(nickName,msg){
+        console.log("채팅방 메시지 수신완료:",nickName,msg);
+
+        var msgTag = "";
+        
+        //본인 메시지 여부 체크 UI템플릿 다르게 구성하기 
+        if(myNickName == nickName){
+            msgTag =`<div class="right">
+                    <div class="author-name">
+                        ${nickName}
+                        <small class="chat-date">
+                            11:24 am
+                        </small>
+                    </div>
+                    <div class="chat-message">
+                        ${msg}
+                    </div>
+                </div>`;
+        }else{
+            msgTag =`<div class="left">
+                    <div class="author-name">
+                        ${nickName}
+                        <small class="chat-date">
+                            08:45 pm
+                        </small>
+                    </div>
+                    <div class="chat-message active">
+                        ${msg}
+                    </div>
+                </div>`;
+        }
+
+        //채팅이력에 태그 추가하기
+        $("#chatContents").append(msgTag);
+        chatScrollToBottom();
+    });
+
+
+
+    //채팅영역 스크롤 최하단 이동시키기
+    function chatScrollToBottom(){
+        $("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+    }
+
+</script>
+
+
+</body>
+
+</html>
